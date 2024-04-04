@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 032f09dd95a380443bd9bcef3d43f041
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _enemiesData: {fileID: 11400000, guid: 42110e294d4b37a4d8e47bc391523ad6, type: 2}
+  - _levelData: {fileID: 11400000, guid: 63cfaf1235585a34ab24f8eddeaf91f4, type: 2}
+  - _coinsData: {fileID: 11400000, guid: 8bcd4755f83888349ac5740d63ffcc5f, type: 2}
+  - _weaponData: {fileID: 11400000, guid: 850be3ce2fd7e064cbfcd655da8f4f75, type: 2}
+  - _slotIconsResolver: {fileID: 11400000, guid: b0f0414f2ef5b8249ac402384321565a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
