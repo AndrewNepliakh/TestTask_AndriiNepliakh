@@ -1,7 +1,7 @@
 using Services;
 using UnityEngine;
 
-namespace Entities.Obstacle
+namespace Entities
 {
     public class Obstacle : MonoBehaviour, IPoolable
     {

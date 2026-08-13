@@ -1,8 +1,8 @@
 using System;
 using Zenject;
 using Services;
+using Entities;
 using UnityEngine;
-using Entities.Obstacle;
 using System.Collections.Generic;
 
 namespace Managers

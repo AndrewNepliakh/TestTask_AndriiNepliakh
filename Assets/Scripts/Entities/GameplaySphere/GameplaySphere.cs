@@ -1,7 +1,7 @@
 using Services;
 using UnityEngine;
 
-namespace Entities.GameplaySphere
+namespace Entities
 {
     public class GameplaySphere :  MonoBehaviour, IPoolable
     {

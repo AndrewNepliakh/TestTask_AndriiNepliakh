@@ -1,14 +1,14 @@
-using Managers;
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
-namespace Entities.GameplaySphere
+namespace Entities
 {
     public class GameplaySphereDragAttribute : MonoBehaviour, IEntireDraggable
     {
         [Inject] private IInputManager _inputManager;
 
         [SerializeField] private GameplaySphereMoveAttribute _moveAttribute;
+        [SerializeField] private GameplaySphereShootAttribute _shootAttribute;
 
         private void OnEnable()
         {
@@ -28,6 +28,7 @@ namespace Entities.GameplaySphere
         public void OnRelease()
         {
             _moveAttribute.Release();
+            _shootAttribute.Shoot();
         }
     }
 }

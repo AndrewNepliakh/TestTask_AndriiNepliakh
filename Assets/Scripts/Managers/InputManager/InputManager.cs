@@ -13,33 +13,38 @@ namespace Managers
 
         private IEntireDraggable _entireDraggable;
 
-        private bool _isDragging;
+        private bool _isPressed;
 
         public void Initialize()
         {
             _input.Enable();
 
+            _input.Gameplay.Tap.started += OnPointerDown;
             _input.Gameplay.Tap.performed += OnTap;
+            _input.Gameplay.Tap.canceled += OnPointerUp;
 
-            _input.Gameplay.Drag.started += OnDragStarted;
             _input.Gameplay.Drag.performed += OnDrag;
-            _input.Gameplay.Drag.canceled += OnDragCanceled;
         }
 
         public void Dispose()
         {
+            _input.Gameplay.Tap.started -= OnPointerDown;
             _input.Gameplay.Tap.performed -= OnTap;
+            _input.Gameplay.Tap.canceled -= OnPointerUp;
 
-            _input.Gameplay.Drag.started -= OnDragStarted;
             _input.Gameplay.Drag.performed -= OnDrag;
-            _input.Gameplay.Drag.canceled -= OnDragCanceled;
 
             _input.Disable();
         }
 
+        private void OnPointerDown(InputAction.CallbackContext _)
+        {
+            _isPressed = true;
+        }
+
         private void OnTap(InputAction.CallbackContext _)
         {
-            if (_isDragging)
+            if (!_isPressed)
                 return;
 
             if (_camera == null)
@@ -59,22 +64,9 @@ namespace Managers
             }
         }
 
-        private void OnDragStarted(InputAction.CallbackContext _)
-        {
-            if (_entireDraggable == null)
-                return;
-
-            _isDragging = true;
-
-            var screenPosition =
-                _input.Gameplay.PointerPosition.ReadValue<Vector2>();
-
-            _entireDraggable.OnDrag(screenPosition);
-        }
-
         private void OnDrag(InputAction.CallbackContext _)
         {
-            if (!_isDragging || _entireDraggable == null)
+            if (!_isPressed || _entireDraggable == null)
                 return;
 
             var screenPosition =
@@ -83,12 +75,12 @@ namespace Managers
             _entireDraggable.OnDrag(screenPosition);
         }
 
-        private void OnDragCanceled(InputAction.CallbackContext _)
+        private void OnPointerUp(InputAction.CallbackContext _)
         {
-            if (!_isDragging)
+            if (!_isPressed)
                 return;
 
-            _isDragging = false;
+            _isPressed = false;
 
             _entireDraggable?.OnRelease();
         }

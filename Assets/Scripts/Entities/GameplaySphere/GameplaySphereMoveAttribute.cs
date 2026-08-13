@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entities.GameplaySphere
+namespace Entities
 {
     public class GameplaySphereMoveAttribute : MonoBehaviour
     {

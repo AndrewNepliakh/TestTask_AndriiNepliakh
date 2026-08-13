@@ -1,7 +1,6 @@
 using UI;
 using System;
-using Entities.Obstacle;
-using Entities.GameplaySphere;
+using Entities;
 using System.Collections.Generic;
 
 namespace Managers
@@ -12,6 +11,7 @@ namespace Managers
         {
             //Entities
             { typeof(Obstacle), "Obstacle" },
+            { typeof(Projectile), "Projectile" },
             { typeof(GameplaySphere), "GameplaySphere" },
             
             //UI

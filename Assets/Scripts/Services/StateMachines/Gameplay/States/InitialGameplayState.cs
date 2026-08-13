@@ -3,7 +3,6 @@ using System;
 using Zenject;
 using Managers;
 using UnityEngine;
-using Entities.Obstacle;
 using System.Threading.Tasks;
 
 namespace Services

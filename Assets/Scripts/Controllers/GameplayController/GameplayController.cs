@@ -1,9 +1,9 @@
 using UI;
 using Zenject;
 using Managers;
+using Entities;
 using Services;
 using UnityEngine;
-using Entities.Obstacle;
 using System.Threading.Tasks;
 
 namespace Controllers
@@ -32,6 +32,8 @@ namespace Controllers
         {
             await _assetsManager.PreloadAssetAsync<TestHUD>();
             await _assetsManager.PreloadAssetAsync<Obstacle>();
+            await _assetsManager.PreloadAssetAsync<Projectile>();
+            await _assetsManager.PreloadAssetAsync<GameplaySphere>();
         }
     }
 }
