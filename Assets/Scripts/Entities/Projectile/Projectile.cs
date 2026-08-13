@@ -1,11 +1,13 @@
+using Zenject;
 using Services;
 using UnityEngine;
+using IPoolable = Services.IPoolable;
 
 namespace Entities
 {
     public class Projectile : MonoBehaviour, IPoolable
     {
-        [SerializeField] private float _speed = 10f;
+        [Inject] private IPoolService _poolService;
 
         public GameObject GameObject => gameObject;
 
@@ -16,10 +18,10 @@ namespace Entities
         public void OnDespawn()
         {
         }
-
-        private void Update()
+        
+        public void Hit()
         {
-            transform.position += Vector3.back * (_speed * Time.deltaTime);
+            _poolService.Despawn(this);
         }
     }
 }
