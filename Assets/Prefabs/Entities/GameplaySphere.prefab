@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7477878648137510441}
   - component: {fileID: 1788533771003779406}
+  - component: {fileID: 7171813074970162248}
+  - component: {fileID: 7415987354998923913}
   m_Layer: 0
   m_Name: GameplaySphere
   m_TagString: Untagged
@@ -45,6 +47,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cd678f2d624a8ea5c215d05fff7c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphere.GameplaySphere
+--- !u!114 &7171813074970162248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877873332885460037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3a6896109b48f59842aeb292b74651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphere.GameplaySphereDragAttribute
+  _moveAttribute: {fileID: 7415987354998923913}
+--- !u!114 &7415987354998923913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877873332885460037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b8cb2e12a54b3f861d6f509d9f49c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphere.GameplaySphereMoveAttribute
+  _gameplaySphere: {fileID: 1788533771003779406}
 --- !u!1 &9015665935313738940
 GameObject:
   m_ObjectHideFlags: 0
