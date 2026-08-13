@@ -33,7 +33,7 @@ MonoBehaviour:
       Data: 1|Managers.LevelConfigData, Assembly-CSharp
     - Name: Density
       Entry: 4
-      Data: 0.02
+      Data: 0.25
     - Name: 
       Entry: 8
       Data: 

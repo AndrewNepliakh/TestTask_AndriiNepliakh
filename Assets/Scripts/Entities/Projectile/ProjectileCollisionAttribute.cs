@@ -1,6 +1,7 @@
+using System;
+using Zenject;
 using Services;
 using UnityEngine;
-using Zenject;
 
 namespace Entities
 {
@@ -8,12 +9,19 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
-        [SerializeField] private ProjectileHitAttribute _hitAttribute;
         [SerializeField] private Projectile _projectile;
+        [SerializeField] private ProjectileHitAttribute _hitAttribute;
+
+        public event Action OnCollision;
 
         private void OnTriggerEnter(Collider other)
         {
-            _hitAttribute.Hit();
+            _hitAttribute.Hit(OnHitCompleted);
+        }
+
+        private void OnHitCompleted()
+        {
+            OnCollision?.Invoke();
 
             _poolService.Despawn(_projectile);
         }

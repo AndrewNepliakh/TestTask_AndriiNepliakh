@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 120645688542384995}
   - component: {fileID: 7642855376159620711}
+  - component: {fileID: 3802081868263419634}
   m_Layer: 9
   m_Name: Obstacle
   m_TagString: Untagged
@@ -159,3 +160,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d2230f48604da8b3b9e55dfa41a211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Obstacle.Obstacle
+--- !u!114 &3802081868263419634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8734830850426560988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad363526f29c4159a795e7687e2c8c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.ObstacleHitAttribute
+  _renderer: {fileID: 6840426365029665411}
+  _hitMaterial: {fileID: 2100000, guid: 0a46e482a75d3465e8acf69c7fb18ade, type: 2}
