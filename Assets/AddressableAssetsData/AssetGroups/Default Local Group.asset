@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 2cc936521aa7f413d9e216f56b70da01
   m_SerializeEntries:
+  - m_GUID: 03a630d1f1da9464a9a2754fa36e7bf3
+    m_Address: GameplaySphere
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e5047f6669f24580b3eff5dc50ecdf2
+    m_Address: Obstacle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91def166975bd4ac3aa843a49a8c19b9
     m_Address: TestHUD
     m_ReadOnly: 0

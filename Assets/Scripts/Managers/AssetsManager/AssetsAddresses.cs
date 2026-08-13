@@ -1,5 +1,7 @@
 using UI;
 using System;
+using Entities.Obstacle;
+using Entities.GameplaySphere;
 using System.Collections.Generic;
 
 namespace Managers
@@ -8,7 +10,11 @@ namespace Managers
     {
         private static readonly Dictionary<Type, string> Addresses = new()
         {
-            //UI TestHUD
+            //Entities
+            { typeof(Obstacle), "Obstacle" },
+            { typeof(GameplaySphere), "GameplaySphere" },
+            
+            //UI
             { typeof(TestHUD), "TestHUD" }
         };
 

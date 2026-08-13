@@ -3,6 +3,7 @@ using System;
 using Zenject;
 using Managers;
 using UnityEngine;
+using Entities.Obstacle;
 using System.Threading.Tasks;
 
 namespace Services
@@ -10,7 +11,8 @@ namespace Services
     public class InitialGameplayState : IState<GameplayStates>
     {
         [Inject] private IUIManager _uiManager;
-        [Inject] private IAssetsManager _assetsManager;
+        [Inject] private ILevelManager _levelManager;
+        [Inject] private IObstaclesManager _obstaclesManager;
         
         public GameplayStates State => GameplayStates.Initial;
 
@@ -20,9 +22,12 @@ namespace Services
         {
             try
             {
-                await _assetsManager.PreloadAssetAsync<TestHUD>();
-                
                 await _uiManager.ShowHUDWindow<TestHUD>();
+
+                var currentLevelData = _levelManager.GetLevelConfigOfCurrentLevel();
+                
+                _obstaclesManager.SpawnObstacles(currentLevelData);
+                
             }
             catch (Exception e)
             {
