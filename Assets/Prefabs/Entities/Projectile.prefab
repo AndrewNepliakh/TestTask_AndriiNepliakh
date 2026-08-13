@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7213069719793322055}
   - component: {fileID: 2451547952629146763}
   - component: {fileID: 7692427874730509717}
+  - component: {fileID: 8005351871547005672}
   m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
@@ -60,6 +61,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.ProjectileMoveAttribute
   _projectile: {fileID: 2451547952629146763}
   _speed: 10
+--- !u!114 &8005351871547005672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7186245483624469503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9100ea4a884996843ec6ccd7089ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.ProjectileHitAttribute
+  _radius: 3
 --- !u!1 &7619052644480325379
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3cd397192740d082195b09fdab452c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.ProjectileCollisionAttribute
+  _hitAttribute: {fileID: 8005351871547005672}
   _projectile: {fileID: 2451547952629146763}
 --- !u!54 &327749969798863035
 Rigidbody:
