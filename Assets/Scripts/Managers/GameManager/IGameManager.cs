@@ -6,6 +6,7 @@ namespace Managers
 {
     public interface IGameManager
     {
+        GameState GameState { get; }
         public event Action<GameState> OnStateChange;
         void LoadScene(string sceneKey, LoadSceneMode mode);
         public void OnWin();

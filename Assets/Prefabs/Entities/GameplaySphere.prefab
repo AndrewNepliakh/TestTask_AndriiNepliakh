@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereWinAnimationAttribute
   _gameplaySphere: {fileID: 7477878648137510441}
   _duration: 4
-  _jumpDistance: 2
+  _jumpDistance: 3
   _jumpHeight: 1
-  _jumpCount: 8
+  _jumpCount: 10
 --- !u!1 &9015665935313738940
 GameObject:
   m_ObjectHideFlags: 0

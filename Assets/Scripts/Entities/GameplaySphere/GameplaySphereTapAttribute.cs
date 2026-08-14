@@ -8,6 +8,7 @@ namespace Entities
     public class GameplaySphereTapAttribute : MonoBehaviour, ITappable
     {
         [Inject] private IInputManager _inputManager;
+        [Inject] private IGameManager _gameManager;
 
         private bool _canReceiveTap;
         private bool _isPointerDown;
@@ -40,6 +41,9 @@ namespace Entities
 
         public void OnPointerDown()
         {
+            if(_gameManager.GameState != GameState.Play)
+                return;
+            
             if (!_canReceiveTap)
                 return;
 
@@ -50,6 +54,9 @@ namespace Entities
 
         public void OnPointerUp()
         {
+            if(_gameManager.GameState != GameState.Play)
+                return;
+            
             if (!_canReceiveTap)
                 return;
 
@@ -63,6 +70,9 @@ namespace Entities
 
         public void OnTap()
         {
+            if(_gameManager.GameState != GameState.Play)
+                return;
+            
             if (!_canReceiveTap)
                 return;
 

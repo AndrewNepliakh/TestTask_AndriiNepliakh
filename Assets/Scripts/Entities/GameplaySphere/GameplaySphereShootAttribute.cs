@@ -8,12 +8,11 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
+        [SerializeField] private Transform _projectileSpawnPoint;
         [SerializeField] private GameplaySphereTapAttribute _tapAttribute;
         [SerializeField] private GameplaySphereCapacityAttribute _capacityAttribute;
         [SerializeField] private GameplaySphereCheckDoorAttribute _checkDoorAttribute;
-        [SerializeField] private Transform _projectileSpawnPoint;
-
-        private ProjectileCollisionAttribute _projectileCollision;
+        
         private ProjectileHitAttribute _projectileHit;
 
         private bool _canShoot = true;
@@ -26,12 +25,6 @@ namespace Entities
         private void OnDisable()
         {
             _capacityAttribute.OnCapacitySpent -= Shoot;
-
-            if (_projectileCollision != null)
-            {
-                _projectileCollision.OnCollision -= OnProjectileCollision;
-                _projectileCollision = null;
-            }
 
             if (_tapAttribute != null)
                 _tapAttribute.SetCanReceiveTap(true);
@@ -60,23 +53,20 @@ namespace Entities
 
             projectileCapacity.SetCapacity(spentCapacity);
 
-            _projectileCollision =
-                projectile.GetComponentInChildren<ProjectileCollisionAttribute>();
-
-            _projectileCollision.OnCollision += OnProjectileCollision;
-
             _projectileHit =
                 projectile.GetComponentInChildren<ProjectileHitAttribute>();
 
+            _projectileHit.OnAfterObstaclesDestroyed += OnProjectileHit;
+            
             _checkDoorAttribute.RegisterProjectile(_projectileHit);
         }
         
-        private void OnProjectileCollision()
+        private void OnProjectileHit()
         {
-            if (_projectileCollision != null)
+            if (_projectileHit != null)
             {
-                _projectileCollision.OnCollision -= OnProjectileCollision;
-                _projectileCollision = null;
+                _projectileHit.OnAfterObstaclesDestroyed -= OnProjectileHit;
+                _projectileHit = null;
             }
 
             _tapAttribute.SetCanReceiveTap(true);

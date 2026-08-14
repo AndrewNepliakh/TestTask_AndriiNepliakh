@@ -11,21 +11,37 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
+        [SerializeField] private Projectile _projectile;
         [SerializeField] private ProjectileCapacityAttribute _capacityAttribute;
+        
         [SerializeField] private float _delay = 0.5f;
 
         private int _obstacleLayer;
-        private int _wallLayer;
+        private bool _hasHit;
 
         public event Action OnAfterObstaclesDestroyed;
 
         private void Awake()
         {
             _obstacleLayer = LayerMask.NameToLayer("Obstacle");
-            _wallLayer = LayerMask.NameToLayer("Wall");
         }
 
-        public void Hit(Action onComplete)
+        private void OnEnable()
+        {
+            _hasHit = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_hasHit)
+                return;
+
+            _hasHit = true;
+
+            Hit();
+        }
+
+        private void Hit()
         {
             var radius = _capacityAttribute.Radius;
 
@@ -44,6 +60,14 @@ namespace Entities
                     obstacles.Add(obstacle);
             }
 
+            if (obstacles.Count == 0)
+            {
+                OnAfterObstaclesDestroyed?.Invoke();
+
+                _poolService.Despawn(_projectile);
+                return;
+            }
+
             foreach (var obstacle in obstacles)
             {
                 obstacle
@@ -51,8 +75,8 @@ namespace Entities
                     ?.SetHit();
             }
 
-            _poolService.Despawn(GetComponent<Projectile>());
-            
+            _poolService.Despawn(_projectile);
+
             DOVirtual.DelayedCall(_delay, () =>
             {
                 foreach (var obstacle in obstacles)
@@ -61,20 +85,8 @@ namespace Entities
                         _poolService.Despawn(obstacle);
                 }
 
-                onComplete?.Invoke();
-                
                 OnAfterObstaclesDestroyed?.Invoke();
             });
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (_capacityAttribute == null)
-                return;
-
-            Gizmos.DrawWireSphere(
-                transform.position,
-                _capacityAttribute.Radius);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Entities
 
         [SerializeField, Range(0f, 1f)]
         private float _loseCapacityPercent = 0.1f;
-        
+
         private const float MinSpentCapacity = 0.01f;
 
         private float _capacity;
@@ -28,7 +28,22 @@ namespace Entities
 
         public float SpentCapacity { get; private set; }
 
+        public float CapacityRatio
+        {
+            get
+            {
+                var loseThreshold =
+                    _initialCapacity * _loseCapacityPercent;
+
+                return Mathf.InverseLerp(
+                    loseThreshold,
+                    _initialCapacity,
+                    _capacity);
+            }
+        }
+
         public event Action<float> OnCapacitySpent;
+        public event Action<float> OnCapacityChanged;
         public event Action<float> OnScaleChanged;
 
         private void OnEnable()
@@ -82,14 +97,18 @@ namespace Entities
             }
 
             OnCapacitySpent?.Invoke(SpentCapacity);
+
+            CheckLose();
         }
 
         private void CheckLose()
         {
-            var loseThreshold = _initialCapacity * _loseCapacityPercent;
+            var loseThreshold =
+                _initialCapacity * _loseCapacityPercent;
 
-            Debug.Log($"_capacity: {_capacity},  lose: {loseThreshold}");
-            
+            Debug.Log(
+                $"_capacity: {_capacity}, lose: {loseThreshold}");
+
             if (_capacity < loseThreshold)
             {
                 _gameManager.OnLose();
@@ -98,14 +117,18 @@ namespace Entities
 
         private void SetScale(float value)
         {
-            _scaleTransform.localScale = Vector3.one * value;
+            _capacity = value;
+
+            _scaleTransform.localScale =
+                Vector3.one * value;
 
             var position = _scaleTransform.localPosition;
-            position.y = value;
+            position.y = value / 2f;
 
             _scaleTransform.localPosition = position;
 
             OnScaleChanged?.Invoke(value);
+            OnCapacityChanged?.Invoke(CapacityRatio);
         }
 
         private void OnDisable()

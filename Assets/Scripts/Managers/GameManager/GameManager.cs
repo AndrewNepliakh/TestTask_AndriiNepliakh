@@ -10,10 +10,10 @@ namespace Managers
         
         public event Action<GameState> OnStateChange;
         
-        private GameState GameState
+        public GameState GameState
         {
             get => _gameState;
-            set
+            private set
             {
                 _gameState = value;
                 OnStateChange?.Invoke(_gameState);
