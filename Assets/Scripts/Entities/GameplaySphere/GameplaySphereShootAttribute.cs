@@ -8,11 +8,13 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
-        [SerializeField] private GameplaySphereTapAttribute _tapAttribute;
         [SerializeField] private GameplaySphereCapacityAttribute _capacityAttribute;
+        [SerializeField] private GameplaySphereCheckDoorAttribute _checkDoorAttribute;
         [SerializeField] private Transform _projectileSpawnPoint;
 
         private ProjectileCollisionAttribute _projectileCollision;
+        private ProjectileHitAttribute _projectileHit;
+
         private bool _canShoot = true;
 
         private void OnEnable()
@@ -56,15 +58,20 @@ namespace Entities
                 projectile.GetComponentInChildren<ProjectileCollisionAttribute>();
 
             _projectileCollision.OnCollision += OnProjectileCollision;
+
+            _projectileHit =
+                projectile.GetComponentInChildren<ProjectileHitAttribute>();
+
+            _checkDoorAttribute.RegisterProjectile(_projectileHit);
         }
 
         private void OnProjectileCollision()
         {
-            if (_projectileCollision == null)
-                return;
-
-            _projectileCollision.OnCollision -= OnProjectileCollision;
-            _projectileCollision = null;
+            if (_projectileCollision != null)
+            {
+                _projectileCollision.OnCollision -= OnProjectileCollision;
+                _projectileCollision = null;
+            }
 
             _canShoot = true;
         }

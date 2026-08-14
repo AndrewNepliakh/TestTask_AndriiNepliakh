@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8983939777639970704}
   - component: {fileID: 532879246407748965}
   - component: {fileID: -4529587251280878650}
+  - component: {fileID: 6353672793855627839}
   m_Layer: 10
   m_Name: GameplaySphere
   m_TagString: Untagged
@@ -72,8 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf2688b39d2481c94a1b7f41b14128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereShootAttribute
-  _tapAttribute: {fileID: 8983939777639970704}
   _capacityAttribute: {fileID: -4529587251280878650}
+  _checkDoorAttribute: {fileID: 6353672793855627839}
   _projectileSpawnPoint: {fileID: 7477878648137510441}
 --- !u!114 &-4529587251280878650
 MonoBehaviour:
@@ -90,6 +91,19 @@ MonoBehaviour:
   _tapAttribute: {fileID: 8983939777639970704}
   _scaleTransform: {fileID: 9113038877652122323}
   _shrinkTimePerCapacity: 1
+--- !u!114 &6353672793855627839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877873332885460037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2eac533234cd9ae8c70d10d1abefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereCheckDoorAttribute
+  _gameplaySphere: {fileID: 9113038877652122323}
 --- !u!1 &9015665935313738940
 GameObject:
   m_ObjectHideFlags: 0

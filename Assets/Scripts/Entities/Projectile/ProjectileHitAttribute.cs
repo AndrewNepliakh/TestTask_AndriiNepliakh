@@ -16,6 +16,8 @@ namespace Entities
 
         private int _obstacleLayer;
 
+        public event Action OnAfterObstaclesDestroyed;
+
         private void Awake()
         {
             _obstacleLayer = LayerMask.NameToLayer("Obstacle");
@@ -48,7 +50,7 @@ namespace Entities
             }
 
             _poolService.Despawn(GetComponent<Projectile>());
-
+            
             DOVirtual.DelayedCall(_delay, () =>
             {
                 foreach (var obstacle in obstacles)
@@ -58,6 +60,8 @@ namespace Entities
                 }
 
                 onComplete?.Invoke();
+                
+                OnAfterObstaclesDestroyed?.Invoke();
             });
         }
 
