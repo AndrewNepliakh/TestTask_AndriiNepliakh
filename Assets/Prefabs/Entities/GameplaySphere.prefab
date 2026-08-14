@@ -91,6 +91,7 @@ MonoBehaviour:
   _tapAttribute: {fileID: 8983939777639970704}
   _scaleTransform: {fileID: 9113038877652122323}
   _shrinkTimePerCapacity: 1
+  _loseCapacityPercent: 0.2
 --- !u!114 &6353672793855627839
 MonoBehaviour:
   m_ObjectHideFlags: 0

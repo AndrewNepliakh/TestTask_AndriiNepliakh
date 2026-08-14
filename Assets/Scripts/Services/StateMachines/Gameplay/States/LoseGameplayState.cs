@@ -1,3 +1,4 @@
+using UI;
 using System;
 using Zenject;
 using UnityEngine;
@@ -7,15 +8,21 @@ namespace Services
 {
     public class LoseGameplayState : IState<GameplayStates>
     {
+        [Inject] private IUIManager _uiManager;
+        
         public GameplayStates State => GameplayStates.Lose;
 
         [Inject] private GameplayStateMachine<GameplayStates> _gameplayStateMachine;
+
+        private LosePopup _losePopup;
     
-        public Task Enter(ChangeStateData changeStateData = null)
+        public async Task Enter(ChangeStateData changeStateData = null)
         {
             try
             {
-                return Task.CompletedTask;
+                _losePopup = await _uiManager.ShowPopup<LosePopup>();
+
+                _losePopup.OnContinueButtonClicked += OnContinueButtonClicked;
             }
             catch (Exception e)
             {
@@ -24,8 +31,18 @@ namespace Services
             }
         }
 
+        private void OnContinueButtonClicked()
+        {
+            _gameplayStateMachine.ChangeState(GameplayStates.Initial);
+        }
+
         public void Exit()
         {
+            _losePopup.OnContinueButtonClicked -= OnContinueButtonClicked;
+            
+            _uiManager.HideCurrentPopup();
+
+            _losePopup = null;
         }
     }
 }

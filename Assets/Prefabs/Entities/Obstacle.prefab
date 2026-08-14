@@ -173,4 +173,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.ObstacleHitAttribute
   _renderer: {fileID: 6840426365029665411}
+  _defaultMaterial: {fileID: 2100000, guid: 47dc093f0bc794a08b2519cdd93fec78, type: 2}
   _hitMaterial: {fileID: 2100000, guid: 0a46e482a75d3465e8acf69c7fb18ade, type: 2}

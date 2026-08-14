@@ -11,9 +11,9 @@ namespace Entities
 
         public void SetCapacity(float capacity)
         {
-            _scaleTransform.localScale = (Vector3.one * capacity) * 3f;
+            _scaleTransform.localScale = (Vector3.one * capacity) * 2f;
 
-            Radius = (capacity * _radiusMultiplier) * 1.5f;
+            Radius = (capacity * _radiusMultiplier) * 1.25f;
         }
     }
 }

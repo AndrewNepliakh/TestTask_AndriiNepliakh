@@ -24,6 +24,8 @@ namespace Managers
                 Quaternion.identity);
 
             OnGameplaySphereCreated?.Invoke(GameplaySphere);
+            
+            GameplaySphere.Initiate();
         }
 
         public void DespawnGameplaySphere()

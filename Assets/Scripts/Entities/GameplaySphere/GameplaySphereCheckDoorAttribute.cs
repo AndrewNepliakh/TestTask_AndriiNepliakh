@@ -1,9 +1,13 @@
+using Managers;
 using UnityEngine;
+using Zenject;
 
 namespace Entities
 {
     public class GameplaySphereCheckDoorAttribute : MonoBehaviour
     {
+        [Inject] private IGameManager _gameManager;
+        
         [SerializeField] private Transform _gameplaySphere;
 
         private ProjectileHitAttribute _projectileHit;
@@ -51,6 +55,8 @@ namespace Entities
                     layerMask))
             {
                 Debug.Log("WIN!!!!");
+                
+                _gameManager.OnWin();
                 
                 _projectileHit.OnAfterObstaclesDestroyed -= CheckDoor;
                 _projectileHit = null;

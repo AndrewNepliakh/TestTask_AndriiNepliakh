@@ -10,6 +10,7 @@ namespace Services
     public class InitialGameplayState : IState<GameplayStates>
     {
         [Inject] private IUIManager _uiManager;
+        [Inject] private IGameManager _gameManager;
         [Inject] private ILevelManager _levelManager;
         [Inject] private IObstaclesManager _obstaclesManager;
         [Inject] private IGameplaySphereManager _gameplaySphereManager;
@@ -20,6 +21,10 @@ namespace Services
 
         public async Task Enter(ChangeStateData changeStateData)
         {
+            _gameManager.OnStateChange += OnStateChange;
+            
+            _gameManager.OnPlay();
+            
             try
             {
                 await _uiManager.ShowHUDWindow<TestHUD>();
@@ -37,8 +42,26 @@ namespace Services
             }
         }
 
+        private void OnStateChange(GameState gameState)
+        {
+            if (gameState == GameState.Win)
+            {
+                _gameplayStateMachine.ChangeState(GameplayStates.Win);
+            }
+            
+            if (gameState == GameState.Lose)
+            {
+                _gameplayStateMachine.ChangeState(GameplayStates.Lose);
+            }
+        }
+
         public void Exit()
         {
+            _uiManager.HideHUDWindow();
+            
+            _gameplaySphereManager.DespawnGameplaySphere();
+            
+            _gameManager.OnStateChange -= OnStateChange;
         }
     }
 }

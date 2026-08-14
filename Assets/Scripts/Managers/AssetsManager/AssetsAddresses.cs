@@ -15,7 +15,9 @@ namespace Managers
             { typeof(GameplaySphere), "GameplaySphere" },
             
             //UI
-            { typeof(TestHUD), "TestHUD" }
+            { typeof(TestHUD), "TestHUD" },
+            { typeof(WinPopup), "WinPopup" },
+            { typeof(LosePopup), "LosePopup" }
         };
 
         public static string Get<T>()

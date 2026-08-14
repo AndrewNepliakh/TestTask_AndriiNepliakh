@@ -5,13 +5,12 @@ namespace Entities
     public class ObstacleHitAttribute : MonoBehaviour
     {
         [SerializeField] private Renderer _renderer;
+        [SerializeField] private Material _defaultMaterial;
         [SerializeField] private Material _hitMaterial;
 
-        private Material _defaultMaterial;
-
-        private void Awake()
+        private void OnEnable()
         {
-            _defaultMaterial = _renderer.material;
+            Reset();
         }
 
         public void SetHit()

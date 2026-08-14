@@ -1,5 +1,7 @@
 using Services;
 using UnityEngine;
+using Sirenix.Utilities;
+
 
 namespace Entities
 {
@@ -13,6 +15,11 @@ namespace Entities
 
         public void OnDespawn()
         {
+        }
+
+        public void Initiate()
+        {
+            GetComponentsInChildren<IInitializer>().ForEach(x => x.Initialize());
         }
     }
 }

@@ -14,11 +14,6 @@ namespace Entities
         public event Action OnTapEvent;
         public event Action OnPointerDownEvent;
         public event Action OnPointerUpEvent;
-
-        private void Start()
-        {
-            SetCanReceiveTap(true);
-        }
         
         public void SetCanReceiveTap(bool value)
         {
@@ -27,6 +22,7 @@ namespace Entities
 
         private void OnEnable()
         {
+            SetCanReceiveTap(true);
             _inputManager.RegisterTappable(this);
         }
 

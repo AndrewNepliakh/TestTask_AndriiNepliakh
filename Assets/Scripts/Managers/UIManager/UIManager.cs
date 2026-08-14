@@ -119,7 +119,7 @@ namespace UI
                 }
             }
 
-            return Task.FromResult((T)_currentPopup);
+            return Task.FromResult((T)_currentHUDWindow);
         }
 
         public void HideHUDWindow()

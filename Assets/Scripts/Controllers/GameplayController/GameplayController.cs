@@ -31,6 +31,8 @@ namespace Controllers
         private async Task PreloadAssets()
         {
             await _assetsManager.PreloadAssetAsync<TestHUD>();
+            await _assetsManager.PreloadAssetAsync<WinPopup>();
+            await _assetsManager.PreloadAssetAsync<LosePopup>();
             await _assetsManager.PreloadAssetAsync<Obstacle>();
             await _assetsManager.PreloadAssetAsync<Projectile>();
             await _assetsManager.PreloadAssetAsync<GameplaySphere>();
