@@ -15,12 +15,14 @@ namespace Entities
         [SerializeField] private float _delay = 0.5f;
 
         private int _obstacleLayer;
+        private int _wallLayer;
 
         public event Action OnAfterObstaclesDestroyed;
 
         private void Awake()
         {
             _obstacleLayer = LayerMask.NameToLayer("Obstacle");
+            _wallLayer = LayerMask.NameToLayer("Wall");
         }
 
         public void Hit(Action onComplete)

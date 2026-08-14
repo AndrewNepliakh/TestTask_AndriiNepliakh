@@ -1,6 +1,7 @@
 using UI;
 using System;
 using Zenject;
+using Managers;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace Services
     public class LoseGameplayState : IState<GameplayStates>
     {
         [Inject] private IUIManager _uiManager;
+        [Inject] private IGameplaySphereManager _gameplaySphereManager;
         
         public GameplayStates State => GameplayStates.Lose;
 
@@ -38,6 +40,8 @@ namespace Services
 
         public void Exit()
         {
+            _gameplaySphereManager.DespawnGameplaySphere();
+            
             _losePopup.OnContinueButtonClicked -= OnContinueButtonClicked;
             
             _uiManager.HideCurrentPopup();

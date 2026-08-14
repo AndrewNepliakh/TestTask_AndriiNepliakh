@@ -12,6 +12,9 @@ namespace Controllers
     {
         [Inject] private GameplayStateMachine<GameplayStates> _gameplayStateMachine;
         [Inject] private IAssetsManager _assetsManager;
+        [Inject] private IObstaclesManager _obstaclesManager;
+
+        [SerializeField] private Obstacle[] _preallocatedObstacles = new Obstacle[100];
 
         [Inject]
         private async void Initiate(
@@ -24,6 +27,8 @@ namespace Controllers
             _gameplayStateMachine.AddState(loseGameplayState);
 
             await PreloadAssets();
+            
+            _obstaclesManager.Initiate(_preallocatedObstacles);
 
             _gameplayStateMachine.ChangeState(GameplayStates.Initial);
         }

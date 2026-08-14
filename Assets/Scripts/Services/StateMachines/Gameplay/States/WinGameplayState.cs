@@ -3,12 +3,14 @@ using System;
 using Zenject;
 using UnityEngine;
 using System.Threading.Tasks;
+using Managers;
 
 namespace Services
 {
     public class WinGameplayState : IState<GameplayStates>
     {
         [Inject] private IUIManager _uiManager;
+        [Inject] private IGameplaySphereManager _gameplaySphereManager;
         
         public GameplayStates State => GameplayStates.Win;
 
@@ -38,6 +40,8 @@ namespace Services
 
         public void Exit()
         {
+            _gameplaySphereManager.DespawnGameplaySphere();
+            
             _winPopup.OnContinueButtonClicked -= OnContinueButtonClicked;
             
             _uiManager.HideCurrentPopup();

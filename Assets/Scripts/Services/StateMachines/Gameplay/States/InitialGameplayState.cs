@@ -51,6 +51,8 @@ namespace Services
             
             if (gameState == GameState.Lose)
             {
+                _gameplaySphereManager.DespawnGameplaySphere();
+                
                 _gameplayStateMachine.ChangeState(GameplayStates.Lose);
             }
         }
@@ -58,8 +60,6 @@ namespace Services
         public void Exit()
         {
             _uiManager.HideHUDWindow();
-            
-            _gameplaySphereManager.DespawnGameplaySphere();
             
             _gameManager.OnStateChange -= OnStateChange;
         }

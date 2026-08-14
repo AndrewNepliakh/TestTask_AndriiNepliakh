@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 532879246407748965}
   - component: {fileID: -4529587251280878650}
   - component: {fileID: 6353672793855627839}
+  - component: {fileID: 713126156084745789}
   m_Layer: 10
   m_Name: GameplaySphere
   m_TagString: Untagged
@@ -105,6 +106,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereCheckDoorAttribute
   _gameplaySphere: {fileID: 9113038877652122323}
+--- !u!114 &713126156084745789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877873332885460037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a90ea1656a4b0697672c19744dfa8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereWinAnimationAttribute
+  _gameplaySphere: {fileID: 7477878648137510441}
+  _duration: 4
+  _jumpDistance: 2
+  _jumpHeight: 1
+  _jumpCount: 8
 --- !u!1 &9015665935313738940
 GameObject:
   m_ObjectHideFlags: 0

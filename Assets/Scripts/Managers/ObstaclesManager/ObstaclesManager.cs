@@ -14,10 +14,16 @@ namespace Managers
 
         public const float MinObstacleDistance = 0.5f;
 
-        [Inject] private ILevelManager _levelManager;
         [Inject] private IPoolService _poolService;
 
         private readonly List<Obstacle> _obstacles = new();
+
+        private Obstacle[] _preallocatedObstacles;
+
+        public void Initiate(Obstacle[] preallocatedObstacles)
+        {
+            _preallocatedObstacles = preallocatedObstacles;
+        }
 
         public void SpawnObstacles(LevelConfigData levelConfig)
         {
@@ -44,35 +50,73 @@ namespace Managers
                 return;
 
             var area = width * height;
-            var obstacleCount = Mathf.RoundToInt(area * levelConfig.Density);
+
+            var obstacleCount = Mathf.RoundToInt(
+                area * levelConfig.Density);
 
             if (obstacleCount <= 0)
                 return;
 
-            var minDistanceSqr = MinObstacleDistance * MinObstacleDistance;
+            var minDistanceSqr =
+                MinObstacleDistance * MinObstacleDistance;
 
-            var spawnPositions = new List<Vector3>(obstacleCount);
+            var spawnPositions =
+                new List<Vector3>(obstacleCount);
 
             const int maxAttemptsPerObstacle = 100;
+
+            var preallocatedIndex = 0;
 
             for (var i = 0; i < obstacleCount; i++)
             {
                 var spawned = false;
 
-                for (var attempt = 0; attempt < maxAttemptsPerObstacle; attempt++)
+                for (var attempt = 0;
+                     attempt < maxAttemptsPerObstacle;
+                     attempt++)
                 {
                     var position = new Vector3(
                         UnityEngine.Random.Range(minX, maxX),
                         0f,
-                        UnityEngine.Random.Range(Height, InitialPoint));
+                        UnityEngine.Random.Range(
+                            Height,
+                            InitialPoint));
 
                     if (!IsPositionVisible(camera, position))
                         continue;
 
-                    if (!IsPositionValid(position, spawnPositions, minDistanceSqr))
+                    if (!IsPositionValid(
+                            position,
+                            spawnPositions,
+                            minDistanceSqr))
+                    {
                         continue;
+                    }
 
                     spawnPositions.Add(position);
+
+                    Obstacle obstacle;
+
+                    if (_preallocatedObstacles != null &&
+                        preallocatedIndex < _preallocatedObstacles.Length)
+                    {
+                        obstacle = _preallocatedObstacles[preallocatedIndex++];
+
+                        obstacle.transform.SetPositionAndRotation(
+                            position,
+                            Quaternion.identity);
+
+                        obstacle.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        obstacle = _poolService.Spawn<Obstacle>(
+                            position,
+                            Quaternion.identity);
+                    }
+
+                    _obstacles.Add(obstacle);
+
                     spawned = true;
                     break;
                 }
@@ -80,20 +124,12 @@ namespace Managers
                 if (!spawned)
                 {
                     Debug.LogWarning(
-                        $"Could not find a valid position for obstacle {i + 1}/{obstacleCount}. " +
+                        $"Could not find a valid position for obstacle " +
+                        $"{i + 1}/{obstacleCount}. " +
                         $"Spawned {spawnPositions.Count} obstacles.");
 
                     break;
                 }
-            }
-
-            foreach (var position in spawnPositions)
-            {
-                var obstacle = _poolService.Spawn<Obstacle>(
-                    position,
-                    Quaternion.identity);
-
-                _obstacles.Add(obstacle);
             }
         }
 
@@ -101,8 +137,11 @@ namespace Managers
         {
             foreach (var obstacle in _obstacles)
             {
-                if (obstacle != null)
+                if (obstacle != null &&
+                    obstacle.GameObject.activeSelf)
+                {
                     _poolService.Despawn(obstacle);
+                }
             }
 
             _obstacles.Clear();
@@ -116,14 +155,19 @@ namespace Managers
             minX = 0f;
             maxX = 0f;
 
-            var plane = new Plane(Vector3.up, Vector3.zero);
+            var plane = new Plane(
+                Vector3.up,
+                Vector3.zero);
 
             var screenPoints = new[]
             {
                 new Vector3(0f, 0f, 0f),
                 new Vector3(Screen.width, 0f, 0f),
                 new Vector3(0f, Screen.height, 0f),
-                new Vector3(Screen.width, Screen.height, 0f)
+                new Vector3(
+                    Screen.width,
+                    Screen.height,
+                    0f)
             };
 
             var hasIntersection = false;
@@ -132,8 +176,12 @@ namespace Managers
             {
                 var ray = camera.ScreenPointToRay(screenPoint);
 
-                if (!plane.Raycast(ray, out var distance))
+                if (!plane.Raycast(
+                        ray,
+                        out var distance))
+                {
                     continue;
+                }
 
                 var worldPoint = ray.GetPoint(distance);
 
@@ -157,7 +205,8 @@ namespace Managers
             Camera camera,
             Vector3 position)
         {
-            var viewportPosition = camera.WorldToViewportPoint(position);
+            var viewportPosition =
+                camera.WorldToViewportPoint(position);
 
             return viewportPosition.z > 0f &&
                    viewportPosition.x >= 0f &&
@@ -173,8 +222,11 @@ namespace Managers
         {
             foreach (var existingPosition in existingPositions)
             {
-                if ((position - existingPosition).sqrMagnitude < minDistanceSqr)
+                if ((position - existingPosition).sqrMagnitude <
+                    minDistanceSqr)
+                {
                     return false;
+                }
             }
 
             return true;
