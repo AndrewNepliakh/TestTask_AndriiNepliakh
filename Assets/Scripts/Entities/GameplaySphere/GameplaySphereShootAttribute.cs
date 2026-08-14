@@ -9,6 +9,7 @@ namespace Entities
         [Inject] private IPoolService _poolService;
 
         [SerializeField] private GameplaySphereTapAttribute _tapAttribute;
+        [SerializeField] private GameplaySphereCapacityAttribute _capacityAttribute;
         [SerializeField] private Transform _projectileSpawnPoint;
 
         private ProjectileCollisionAttribute _projectileCollision;
@@ -21,7 +22,8 @@ namespace Entities
 
         private void OnDisable()
         {
-            _tapAttribute.OnPointerUpEvent -= Shoot;
+            if (_tapAttribute != null)
+                _tapAttribute.OnPointerUpEvent -= Shoot;
 
             if (_projectileCollision != null)
             {
@@ -37,11 +39,21 @@ namespace Entities
             if (!_canShoot)
                 return;
 
+            var spentCapacity = _capacityAttribute.SpentCapacity;
+
+            if (spentCapacity <= 0f)
+                return;
+
             _canShoot = false;
 
             var projectile = _poolService.Spawn<Projectile>(
                 _projectileSpawnPoint.position,
                 Quaternion.identity);
+
+            var projectileCapacity =
+                projectile.GetComponent<ProjectileCapacityAttribute>();
+
+            projectileCapacity.SetCapacity(spentCapacity);
 
             _projectileCollision =
                 projectile.GetComponentInChildren<ProjectileCollisionAttribute>();

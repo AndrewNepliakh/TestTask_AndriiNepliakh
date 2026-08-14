@@ -12,6 +12,7 @@ namespace Services
         [Inject] private IUIManager _uiManager;
         [Inject] private ILevelManager _levelManager;
         [Inject] private IObstaclesManager _obstaclesManager;
+        [Inject] private IGameplaySphereManager _gameplaySphereManager;
         
         public GameplayStates State => GameplayStates.Initial;
 
@@ -27,6 +28,7 @@ namespace Services
                 
                 _obstaclesManager.SpawnObstacles(currentLevelData);
                 
+                _gameplaySphereManager.SpawnGameplaySphere();
             }
             catch (Exception e)
             {

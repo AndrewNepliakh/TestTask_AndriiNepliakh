@@ -17,6 +17,7 @@ namespace Infrastructure
             Container.Bind<ILevelManager>().To<LevelManager>().AsSingle().NonLazy();
             Container.Bind<IAssetsManager>().To<AssetsManager>().AsSingle().NonLazy();
             Container.Bind<IObstaclesManager>().To<ObstaclesManager>().AsSingle().NonLazy();
+            Container.Bind<IGameplaySphereManager>().To<GameplaySphereManager>().AsSingle().NonLazy();
 
             Container.Bind(typeof(IGameManager), typeof(IInitializable), typeof(IDisposable)).To<GameManager>()
                 .AsSingle().NonLazy();

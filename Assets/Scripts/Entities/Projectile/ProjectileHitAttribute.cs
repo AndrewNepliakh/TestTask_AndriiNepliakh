@@ -11,7 +11,7 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
-        [SerializeField] private float _radius = 3f;
+        [SerializeField] private ProjectileCapacityAttribute _capacityAttribute;
         [SerializeField] private float _delay = 0.5f;
 
         private int _obstacleLayer;
@@ -23,9 +23,11 @@ namespace Entities
 
         public void Hit(Action onComplete)
         {
+            var radius = _capacityAttribute.Radius;
+
             var colliders = Physics.OverlapSphere(
                 transform.position,
-                _radius,
+                radius,
                 1 << _obstacleLayer);
 
             var obstacles = new HashSet<Obstacle>();
@@ -61,7 +63,12 @@ namespace Entities
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(transform.position, _radius);
+            if (_capacityAttribute == null)
+                return;
+
+            Gizmos.DrawWireSphere(
+                transform.position,
+                _capacityAttribute.Radius);
         }
     }
 }

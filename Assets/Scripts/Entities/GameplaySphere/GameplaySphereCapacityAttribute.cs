@@ -14,7 +14,11 @@ namespace Entities
         [SerializeField] private float _shrinkTimePerCapacity = 1f;
 
         private float _capacity;
+        private float _capacityBeforeShrink;
+
         private Tween _shrinkTween;
+
+        public float SpentCapacity { get; private set; }
 
         private void OnEnable()
         {
@@ -28,20 +32,19 @@ namespace Entities
                 .GetLevelConfigOfCurrentLevel()
                 .Capacity;
 
-            _scaleTransform.localScale = Vector3.one * _capacity;
-
-            var position = _scaleTransform.localPosition;
-            position.y = _capacity;
-            _scaleTransform.localPosition = position;
+            SetScale(_capacity);
         }
 
         private void StartShrink()
         {
             _shrinkTween?.Kill();
 
-            _shrinkTween = _scaleTransform
-                .DOScale(
-                    Vector3.zero,
+            _capacityBeforeShrink = _capacity;
+
+            _shrinkTween = DOTween.To(
+                    () => _scaleTransform.localScale.x,
+                    SetScale,
+                    0f,
                     _capacity * _shrinkTimePerCapacity)
                 .SetEase(Ease.Linear);
         }
@@ -50,6 +53,24 @@ namespace Entities
         {
             _shrinkTween?.Kill();
             _shrinkTween = null;
+
+            var currentScale = _scaleTransform.localScale.x;
+
+            SpentCapacity = Mathf.Max(
+                0f,
+                _capacityBeforeShrink - currentScale);
+
+            _capacity = currentScale;
+        }
+        
+        private void SetScale(float value)
+        {
+            _scaleTransform.localScale = Vector3.one * value;
+
+            var position = _scaleTransform.localPosition;
+            position.y = value;
+
+            _scaleTransform.localPosition = position;
         }
 
         private void OnDisable()

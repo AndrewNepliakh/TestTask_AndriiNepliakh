@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereShootAttribute
   _tapAttribute: {fileID: 8983939777639970704}
+  _capacityAttribute: {fileID: -4529587251280878650}
   _projectileSpawnPoint: {fileID: 7477878648137510441}
 --- !u!114 &-4529587251280878650
 MonoBehaviour:
