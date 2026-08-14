@@ -1,7 +1,11 @@
-using Managers;
-
-public interface IInputManager
+namespace Managers
 {
-    void RegisterEntireDraggable(IEntireDraggable draggable);
-    void UnregisterEntireDraggable(IEntireDraggable draggable);
+    public interface IInputManager
+    {
+        void RegisterEntireDraggable(IEntireDraggable draggable);
+        void UnregisterEntireDraggable(IEntireDraggable draggable);
+
+        void RegisterTappable(ITappable tappable);
+        void UnregisterTappable(ITappable tappable);
+    }
 }

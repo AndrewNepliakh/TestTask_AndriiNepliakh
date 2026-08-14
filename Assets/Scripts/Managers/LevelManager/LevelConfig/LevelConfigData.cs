@@ -6,5 +6,6 @@ namespace Managers
     public class LevelConfigData
     {
         public float Density;
+        public float Capacity;
     }
 }

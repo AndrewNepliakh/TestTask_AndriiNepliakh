@@ -8,12 +8,31 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
+        [SerializeField] private GameplaySphereTapAttribute _tapAttribute;
         [SerializeField] private Transform _projectileSpawnPoint;
 
         private ProjectileCollisionAttribute _projectileCollision;
         private bool _canShoot = true;
 
-        public void Shoot()
+        private void OnEnable()
+        {
+            _tapAttribute.OnPointerUpEvent += Shoot;
+        }
+
+        private void OnDisable()
+        {
+            _tapAttribute.OnPointerUpEvent -= Shoot;
+
+            if (_projectileCollision != null)
+            {
+                _projectileCollision.OnCollision -= OnProjectileCollision;
+                _projectileCollision = null;
+            }
+
+            _canShoot = true;
+        }
+
+        private void Shoot()
         {
             if (!_canShoot)
                 return;
@@ -36,19 +55,7 @@ namespace Entities
                 return;
 
             _projectileCollision.OnCollision -= OnProjectileCollision;
-
             _projectileCollision = null;
-
-            _canShoot = true;
-        }
-
-        private void OnDisable()
-        {
-            if (_projectileCollision != null)
-            {
-                _projectileCollision.OnCollision -= OnProjectileCollision;
-                _projectileCollision = null;
-            }
 
             _canShoot = true;
         }

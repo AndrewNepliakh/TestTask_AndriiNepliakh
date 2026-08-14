@@ -7,11 +7,10 @@ namespace Managers
 {
     public class InputManager : IInputManager, IInitializable, IDisposable
     {
-        private Camera _camera;
-
         private readonly GameplayInput _input = new();
 
         private IEntireDraggable _entireDraggable;
+        private ITappable _tappable;
 
         private bool _isPressed;
 
@@ -40,6 +39,8 @@ namespace Managers
         private void OnPointerDown(InputAction.CallbackContext _)
         {
             _isPressed = true;
+
+            _tappable?.OnPointerDown();
         }
 
         private void OnTap(InputAction.CallbackContext _)
@@ -47,21 +48,7 @@ namespace Managers
             if (!_isPressed)
                 return;
 
-            if (_camera == null)
-                _camera = Camera.main;
-
-            var screenPosition =
-                _input.Gameplay.PointerPosition.ReadValue<Vector2>();
-
-            var ray = _camera.ScreenPointToRay(screenPosition);
-
-            if (!Physics.Raycast(ray, out var hit))
-                return;
-
-            if (hit.collider.TryGetComponent<ITappable>(out var tappable))
-            {
-                tappable.OnTap();
-            }
+            _tappable?.OnTap();
         }
 
         private void OnDrag(InputAction.CallbackContext _)
@@ -82,6 +69,8 @@ namespace Managers
 
             _isPressed = false;
 
+            _tappable?.OnPointerUp();
+
             _entireDraggable?.OnRelease();
         }
 
@@ -94,6 +83,17 @@ namespace Managers
         {
             if (_entireDraggable == draggable)
                 _entireDraggable = null;
+        }
+
+        public void RegisterTappable(ITappable tappable)
+        {
+            _tappable = tappable;
+        }
+
+        public void UnregisterTappable(ITappable tappable)
+        {
+            if (_tappable == tappable)
+                _tappable = null;
         }
     }
 }

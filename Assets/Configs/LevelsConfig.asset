@@ -34,6 +34,9 @@ MonoBehaviour:
     - Name: Density
       Entry: 4
       Data: 0.25
+    - Name: Capacity
+      Entry: 4
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
