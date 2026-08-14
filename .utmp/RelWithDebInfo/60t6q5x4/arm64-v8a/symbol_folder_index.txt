@@ -1,0 +1,1 @@
+/Users/nepliakhandrii/Repository/TEST-TASK/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/60t6q5x4/obj/arm64-v8a

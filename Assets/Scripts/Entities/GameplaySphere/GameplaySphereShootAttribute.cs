@@ -8,6 +8,7 @@ namespace Entities
     {
         [Inject] private IPoolService _poolService;
 
+        [SerializeField] private GameplaySphereTapAttribute _tapAttribute;
         [SerializeField] private GameplaySphereCapacityAttribute _capacityAttribute;
         [SerializeField] private GameplaySphereCheckDoorAttribute _checkDoorAttribute;
         [SerializeField] private Transform _projectileSpawnPoint;
@@ -32,6 +33,9 @@ namespace Entities
                 _projectileCollision = null;
             }
 
+            if (_tapAttribute != null)
+                _tapAttribute.SetCanReceiveTap(true);
+
             _canShoot = true;
         }
 
@@ -44,6 +48,8 @@ namespace Entities
                 return;
 
             _canShoot = false;
+
+            _tapAttribute.SetCanReceiveTap(false);
 
             var projectile = _poolService.Spawn<Projectile>(
                 _projectileSpawnPoint.position,
@@ -64,7 +70,7 @@ namespace Entities
 
             _checkDoorAttribute.RegisterProjectile(_projectileHit);
         }
-
+        
         private void OnProjectileCollision()
         {
             if (_projectileCollision != null)
@@ -72,6 +78,8 @@ namespace Entities
                 _projectileCollision.OnCollision -= OnProjectileCollision;
                 _projectileCollision = null;
             }
+
+            _tapAttribute.SetCanReceiveTap(true);
 
             _canShoot = true;
         }

@@ -17,6 +17,8 @@ namespace Entities
 
         [SerializeField, Range(0f, 1f)]
         private float _loseCapacityPercent = 0.1f;
+        
+        private const float MinSpentCapacity = 0.01f;
 
         private float _capacity;
         private float _initialCapacity;
@@ -73,9 +75,13 @@ namespace Entities
 
             _capacity = currentScale;
 
-            OnCapacitySpent?.Invoke(SpentCapacity);
+            if (SpentCapacity <= MinSpentCapacity)
+            {
+                SpentCapacity = 0f;
+                return;
+            }
 
-            CheckLose();
+            OnCapacitySpent?.Invoke(SpentCapacity);
         }
 
         private void CheckLose()

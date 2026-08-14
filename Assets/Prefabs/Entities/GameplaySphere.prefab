@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf2688b39d2481c94a1b7f41b14128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereShootAttribute
+  _tapAttribute: {fileID: 8983939777639970704}
   _capacityAttribute: {fileID: -4529587251280878650}
   _checkDoorAttribute: {fileID: 6353672793855627839}
   _projectileSpawnPoint: {fileID: 7477878648137510441}
