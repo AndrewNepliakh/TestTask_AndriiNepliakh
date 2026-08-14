@@ -1,3 +1,4 @@
+using System;
 using Zenject;
 using Services;
 using Entities;
@@ -11,12 +12,18 @@ namespace Managers
 
         public GameplaySphere GameplaySphere { get; private set; }
 
+        public event Action<GameplaySphere> OnGameplaySphereCreated;
+
         public void SpawnGameplaySphere()
         {
             if (GameplaySphere != null)
                 return;
 
-            GameplaySphere = _poolService.Spawn<GameplaySphere>(Vector3.zero, Quaternion.identity);
+            GameplaySphere = _poolService.Spawn<GameplaySphere>(
+                Vector3.zero,
+                Quaternion.identity);
+
+            OnGameplaySphereCreated?.Invoke(GameplaySphere);
         }
 
         public void DespawnGameplaySphere()

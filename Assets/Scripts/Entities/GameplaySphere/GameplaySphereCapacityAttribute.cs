@@ -1,3 +1,4 @@
+using System;
 using Zenject;
 using Managers;
 using DG.Tweening;
@@ -19,6 +20,10 @@ namespace Entities
         private Tween _shrinkTween;
 
         public float SpentCapacity { get; private set; }
+        
+        public event Action<float> OnCapacitySpent;
+
+        public event Action<float> OnScaleChanged;
 
         private void OnEnable()
         {
@@ -61,8 +66,10 @@ namespace Entities
                 _capacityBeforeShrink - currentScale);
 
             _capacity = currentScale;
+
+            OnCapacitySpent?.Invoke(SpentCapacity);
         }
-        
+
         private void SetScale(float value)
         {
             _scaleTransform.localScale = Vector3.one * value;
@@ -71,6 +78,8 @@ namespace Entities
             position.y = value;
 
             _scaleTransform.localPosition = position;
+
+            OnScaleChanged?.Invoke(value);
         }
 
         private void OnDisable()

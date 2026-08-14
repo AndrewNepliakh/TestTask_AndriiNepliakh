@@ -17,13 +17,12 @@ namespace Entities
 
         private void OnEnable()
         {
-            _tapAttribute.OnPointerUpEvent += Shoot;
+            _capacityAttribute.OnCapacitySpent += Shoot;
         }
 
         private void OnDisable()
         {
-            if (_tapAttribute != null)
-                _tapAttribute.OnPointerUpEvent -= Shoot;
+            _capacityAttribute.OnCapacitySpent -= Shoot;
 
             if (_projectileCollision != null)
             {
@@ -34,12 +33,10 @@ namespace Entities
             _canShoot = true;
         }
 
-        private void Shoot()
+        private void Shoot(float spentCapacity)
         {
             if (!_canShoot)
                 return;
-
-            var spentCapacity = _capacityAttribute.SpentCapacity;
 
             if (spentCapacity <= 0f)
                 return;
