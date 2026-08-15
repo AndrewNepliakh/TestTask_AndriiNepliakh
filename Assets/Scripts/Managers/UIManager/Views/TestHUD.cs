@@ -29,8 +29,7 @@ namespace UI
 
             if (_gameplaySphereManager.GameplaySphere != null)
             {
-                OnGameplaySphereCreated(
-                    _gameplaySphereManager.GameplaySphere);
+                OnGameplaySphereCreated(_gameplaySphereManager.GameplaySphere);
             }
         }
 
@@ -49,8 +48,7 @@ namespace UI
 
             _gameplaySphereCapacityAttribute.OnCapacityChanged += OnCapacityChanged;
 
-            SetFillScale(
-                _gameplaySphereCapacityAttribute.CapacityRatio);
+            SetFillScale(_gameplaySphereCapacityAttribute.CapacityRatio);
         }
 
         private void OnCapacityChanged(float capacityRatio)
@@ -60,24 +58,25 @@ namespace UI
 
         private void SetFillScale(float value)
         {
-            var scale = _fillRectTransform.localScale;
+            value = Mathf.Clamp01(value);
 
-            scale.y = _initialScaleY * Mathf.Clamp01(value);
+            var scale = _fillRectTransform.localScale;
+            scale.y = _initialScaleY * value;
 
             _fillRectTransform.localScale = scale;
+
+            _fillImage.color = _fillGradient.Evaluate(value);
         }
 
         public override void Hide()
         {
             base.Hide();
 
-            _gameplaySphereManager.OnGameplaySphereCreated -=
-                OnGameplaySphereCreated;
+            _gameplaySphereManager.OnGameplaySphereCreated -= OnGameplaySphereCreated;
 
             if (_gameplaySphereCapacityAttribute != null)
             {
-                _gameplaySphereCapacityAttribute.OnCapacityChanged -=
-                    OnCapacityChanged;
+                _gameplaySphereCapacityAttribute.OnCapacityChanged -= OnCapacityChanged;
 
                 _gameplaySphereCapacityAttribute = null;
             }
