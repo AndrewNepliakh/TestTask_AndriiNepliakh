@@ -116,6 +116,8 @@ namespace Managers
                     }
 
                     _obstacles.Add(obstacle);
+                    
+                    obstacle.Initiate();
 
                     spawned = true;
                     break;

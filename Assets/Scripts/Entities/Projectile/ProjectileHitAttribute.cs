@@ -70,9 +70,7 @@ namespace Entities
 
             foreach (var obstacle in obstacles)
             {
-                obstacle
-                    .GetComponent<ObstacleHitAttribute>()
-                    ?.SetHit();
+                obstacle.GetComponent<ObstacleHitAttribute>()?.Hit();
             }
 
             _poolService.Despawn(_projectile);

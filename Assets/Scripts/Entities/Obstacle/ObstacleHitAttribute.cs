@@ -1,26 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace Entities
 {
     public class ObstacleHitAttribute : MonoBehaviour
     {
-        [SerializeField] private Renderer _renderer;
-        [SerializeField] private Material _defaultMaterial;
-        [SerializeField] private Material _hitMaterial;
+        public event Action OnHit;
 
-        private void OnEnable()
+        public void Hit()
         {
-            Reset();
-        }
-
-        public void SetHit()
-        {
-            _renderer.material = _hitMaterial;
-        }
-
-        public void Reset()
-        {
-            _renderer.material = _defaultMaterial;
+            OnHit?.Invoke();
         }
     }
 }

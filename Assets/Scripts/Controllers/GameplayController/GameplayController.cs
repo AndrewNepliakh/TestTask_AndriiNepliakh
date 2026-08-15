@@ -14,7 +14,7 @@ namespace Controllers
         [Inject] private IAssetsManager _assetsManager;
         [Inject] private IObstaclesManager _obstaclesManager;
 
-        [SerializeField] private Obstacle[] _preallocatedObstacles = new Obstacle[100];
+        [SerializeField] private Obstacle[] _preallocatedObstacles = new Obstacle[600];
 
         [Inject]
         private async void Initiate(

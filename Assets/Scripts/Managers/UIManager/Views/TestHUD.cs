@@ -11,6 +11,7 @@ namespace UI
         [Inject] private IGameplaySphereManager _gameplaySphereManager;
 
         [SerializeField] private Image _fillImage;
+        [SerializeField] private Gradient _fillGradient;
 
         private GameplaySphereCapacityAttribute _gameplaySphereCapacityAttribute;
         private RectTransform _fillRectTransform;

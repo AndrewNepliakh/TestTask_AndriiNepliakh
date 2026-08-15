@@ -16,13 +16,13 @@ namespace Entities
         public event Action OnTapEvent;
         public event Action OnPointerDownEvent;
         public event Action OnPointerUpEvent;
+        public event Action<bool> OnCanReceiveTapChanged;
 
         public void SetCanReceiveTap(bool value)
         {
             _canReceiveTap = value;
-
-            if (!value)
-                _isPointerDown = false;
+            
+            OnCanReceiveTapChanged?.Invoke(_canReceiveTap);
         }
 
         private void OnEnable()

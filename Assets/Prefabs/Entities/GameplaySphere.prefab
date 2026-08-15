@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -4529587251280878650}
   - component: {fileID: 6353672793855627839}
   - component: {fileID: 713126156084745789}
+  - component: {fileID: -6048177406661256432}
   m_Layer: 10
   m_Name: GameplaySphere
   m_TagString: Untagged
@@ -74,10 +75,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf2688b39d2481c94a1b7f41b14128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereShootAttribute
+  _projectileSpawnPoint: {fileID: 7477878648137510441}
   _tapAttribute: {fileID: 8983939777639970704}
   _capacityAttribute: {fileID: -4529587251280878650}
   _checkDoorAttribute: {fileID: 6353672793855627839}
-  _projectileSpawnPoint: {fileID: 7477878648137510441}
 --- !u!114 &-4529587251280878650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +125,22 @@ MonoBehaviour:
   _jumpDistance: 3
   _jumpHeight: 1
   _jumpCount: 10
+--- !u!114 &-6048177406661256432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877873332885460037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46b62446da944a0899476b0c48c1c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.GameplaySphereColorAttribute
+  _gameplaySphereTapAttribute: {fileID: 8983939777639970704}
+  _renderer: {fileID: 2490736775542876293}
+  _defaultMaterial: {fileID: 2100000, guid: e2eb6d52e642c4b8e93ee39e9e368e8d, type: 2}
+  _greyMaterial: {fileID: 2100000, guid: 50754580333034e209fa93e418f49b51, type: 2}
 --- !u!1 &9015665935313738940
 GameObject:
   m_ObjectHideFlags: 0

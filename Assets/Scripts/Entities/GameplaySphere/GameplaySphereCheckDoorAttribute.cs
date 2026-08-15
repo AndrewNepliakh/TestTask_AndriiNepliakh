@@ -54,17 +54,8 @@ namespace Entities
                     Mathf.Infinity,
                     layerMask))
             {
-                Debug.Log("WIN!!!!");
-                
                 _gameManager.OnWin();
-                
-                _projectileHit.OnAfterObstaclesDestroyed -= CheckDoor;
-                _projectileHit = null;
-                
-                return;
             }
-            
-            Debug.Log("NOT WIN");
 
             _projectileHit.OnAfterObstaclesDestroyed -= CheckDoor;
             _projectileHit = null;

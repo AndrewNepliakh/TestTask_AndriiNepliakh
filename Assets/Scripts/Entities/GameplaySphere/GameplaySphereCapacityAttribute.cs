@@ -106,9 +106,6 @@ namespace Entities
             var loseThreshold =
                 _initialCapacity * _loseCapacityPercent;
 
-            Debug.Log(
-                $"_capacity: {_capacity}, lose: {loseThreshold}");
-
             if (_capacity < loseThreshold)
             {
                 _gameManager.OnLose();

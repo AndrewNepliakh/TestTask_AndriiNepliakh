@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 120645688542384995}
   - component: {fileID: 7642855376159620711}
   - component: {fileID: 3802081868263419634}
+  - component: {fileID: -2837680437501912470}
   m_Layer: 9
   m_Name: Obstacle
   m_TagString: Untagged
@@ -172,6 +173,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad363526f29c4159a795e7687e2c8c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.ObstacleHitAttribute
+--- !u!114 &-2837680437501912470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8734830850426560988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8ad9476ba749af8463275c45d96396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.ObstacleColorAttribute
+  _obstacleHitAttribute: {fileID: 3802081868263419634}
   _renderer: {fileID: 6840426365029665411}
   _defaultMaterial: {fileID: 2100000, guid: 47dc093f0bc794a08b2519cdd93fec78, type: 2}
   _hitMaterial: {fileID: 2100000, guid: 0a46e482a75d3465e8acf69c7fb18ade, type: 2}
